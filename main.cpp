@@ -25,6 +25,7 @@ int main()
 {
     const int rows = 3; 
     const int cols = 3;    
+    system("clear");
     std::cout<<"\n\t\t*--------------Welcome to the Tic Tac Toe Game--------------*\n";
     char board[rows][cols] = 
     {   
@@ -40,17 +41,24 @@ int main()
     std::cout<<"Player 2: ";
     p2.setName();
     p2.setChar();
+    system("clear");
     std::cout<<endl;
     char playAgain = 'y';
-    std::cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
-    std::cout << left << setw(15) << "Name" << setw(15) << "Char Allocated" << endl;
-        std::cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
-        std::cout << left << setw(15) << p1.showName() << setw(7) << right << p1.showChar() << endl;
-        std::cout << left << setw(15) << p2.showName() << setw(7) << right << p2.showChar() << endl;
-        std::cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
-        std::cout << endl;
-        // std::cout << "Press any Character to continue:";
-        // getche();
+    cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
+    cout << left << setw(15) << "Name" << setw(15) << "Char Allocated" << endl;
+    cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
+    cout << left << setw(15) << p1.showName() << setw(7) << right << p1.showChar() << endl;
+    cout << left << setw(15) << p2.showName() << setw(7) << right << p2.showChar() << endl;
+    cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
+    cout << endl;
+    cout << "Instructions:\n";
+    cout << "1. Players will take turns to enter the row and column of their move.\n";
+    cout << "2. Rows and columns are numbered from 1 to 3.\n";
+    cout << "3. The player who first completes a horizontal, vertical, or diagonal line with their character wins the game.\n";
+    cout << "4. The game ends in a tie if all cells are filled, and no player wins.\n";
+    cout << "5. Have fun playing Tic Tac Toe!\n\n";
+    cout << "Press any character to continue: " << getchar() << endl;
+    system("clear");
     do
     {
         currentPlayer = 'X';
