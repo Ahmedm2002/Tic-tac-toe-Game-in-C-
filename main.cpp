@@ -1,8 +1,8 @@
 #include <iostream>
 #include<string>
 #include<cstdlib>
+#include<limits>
 #include<iomanip>
-#include<ncurses.h>
 using namespace std;
 class player{
     private: 
@@ -26,7 +26,7 @@ int main()
     const int rows = 3; 
     const int cols = 3;    
     system("clear");
-    std::cout<<"\n\t\t*--------------Welcome to the Tic Tac Toe Game--------------*\n";
+    cout<<"\n\t\t*--------------Welcome to the Tic Tac Toe Game--------------*\n";
     char board[rows][cols] = 
     {   
         {'\0', '\0', '\0'},
@@ -34,15 +34,15 @@ int main()
         {'\0', '\0', '\0'},
     };   
     player p1, p2;
-    std::cout<<"Enter Names of the Players\n";
-    std::cout<<"Player 1: ";
+    cout<<"Enter Names of the Players\n";
+    cout<<"Player 1: ";
     p1.setName();
     p1.setChar();
-    std::cout<<"Player 2: ";
+    cout<<"Player 2: ";
     p2.setName();
     p2.setChar();
     system("clear");
-    std::cout<<endl;
+    cout<<endl;
     char playAgain = 'y';
     cout << setfill('-') << setw(30) << "-" << setfill(' ') << endl;
     cout << left << setw(15) << "Name" << setw(15) << "Char Allocated" << endl;
@@ -65,34 +65,44 @@ int main()
         system("clear");
         displayboard(board, rows);
         int i = 0;
+        bool validMove = false;
         for(; i < 9 ; i++)
         {
             int rInput , cInput;
             if(currentPlayer == 'X')
             {
-              std::cout<<"Current Player (X): "<<p1.showName()<<endl;
+              cout<<"Current Player (X): "<<p1.showName()<<endl;
             }
             else 
-            std::cout<<"Current Player (0): "<<p2.showName()<<endl;
-
-            std::cout<<"Enter the move ( Row, Column ): ";
-            cin>>rInput>>cInput;
+            cout<<"Current Player (0): "<<p2.showName()<<endl;
+            cout<<"Enter Your Move\n";
+            cout<<"Enter Row: ";
+            cin>>rInput;
+            cout<<"Enter Column: ";
+            cin>>cInput;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             rInput--;
             cInput--;
             if(validteInput(rInput, cInput))
             {
                 if(board[rInput][cInput] == '\0')
                 {
+                    validMove = true;
                     board[rInput][cInput] = currentPlayer;
                     currentPlayer = (currentPlayer == 'X') ? '0' : 'X';
-                    cout<<"this block was executed\n";
                 }
-                else 
+                if (board[rInput][cInput] == '0' || board[rInput][cInput] == 'X')
                 {
-                    std::cout<<"Charcter Already Present\n";
-                    std::cout<<"Try Again\n";
-                    i--;
-                    cout<<currentPlayer<<endl;
+                    // cout << "Charcter Already Present\n";
+                    // cout << "Try Again\n";
+                    // i--;
+                    // validMove = false;
+                    // if(!validMove)
+                    // {
+                    //     cin.clear();
+                    //     cout<<"Press Enter to continue: "<<getchar();
+                    //     cout << currentPlayer << endl;
+                    // }
                 }
                 system("clear");
                 displayboard(board, rows);
@@ -100,18 +110,17 @@ int main()
                 cInput = -1;
                 if( i >= 4)
                 {   
-                    
                     char winner = checkWinner(board, rows);
                     if(winner != '\0')
                     {   
                         if(winner == 'X')
                         {
-                            std::cout<<"Congratulaion !! "<<p1.showName()<<" You have Won The Game\n";
+                            cout<<"Congratulaion !! "<<p1.showName()<<" You have Won The Game\n";
                             p1.wins++;
                         }
                         else 
                         {
-                            std::cout<<"Congratulaion !! "<<p2.showName()<<" You have Won The Game\n";
+                            cout<<"Congratulaion !! "<<p2.showName()<<" You have Won The Game\n";
                             p2.wins++;
                         }
                         break;
@@ -124,11 +133,11 @@ int main()
             }
             else 
             {
-                std::cout<<endl;
+                cout<<endl;
                 i--;
             }
        }  
-        std::cout<<"Do you Want to Play Again (Y/N): \n";
+        cout<<"Do you Want to Play Again (Y/N): \n";
         cin>>playAgain;
         if (playAgain != 'n' || playAgain != 'N')
         {
@@ -142,31 +151,31 @@ int main()
             currentPlayer = 'X';
         }
     } while(playAgain != 'n' && playAgain != 'N');
-    std::cout << "\n\n*---------------------Result---------------------*\n\n";
-    std::cout << setw(15) << "Name" << setw(10) << "Wins" << endl;
-    std::cout << setfill(' ');
-    std::cout << setw(25)<<setfill('-');
-    std::cout << setfill(' ')<<endl;
-    std::cout << setw(15) << p1.showName() << setw(10) << p1.wins << endl;
-    std::cout << setw(15) << p2.showName() << setw(10) << p2.wins << endl;
+    cout << "\n\n*---------------------Result---------------------*\n\n";
+    cout << left << setw(15) << "Name" << setw(10) << "Wins" << endl;
+    cout << left << setfill(' ');
+    cout << left << setw(25)<<setfill('-');
+    cout << left << setfill(' ')<<endl;
+    cout << left << setw(15) << p1.showName() << setw(10) << p1.wins << endl;
+    cout << left << setw(15) << p2.showName() << setw(10) << p2.wins << endl;
     return 0;
 }
 void displayboard(char board[][3], int rows) 
 {    
-    std::cout << "\n";
+    cout << "\n";
     for (int i = 0; i < 3; ++i) 
     {
-        std::cout<<"\t\t";
+        cout<<"\t\t";
         for (int j = 0; j < 3; ++j) 
         {
             if(board[i][j] == '\0')
             {
-                std::cout<<i+1<<","<<j+1<<"\t";
+                cout<<i+1<<","<<j+1<<"\t";
             }
             else 
-                std::cout<<board[i][j]<< "\t";
+                cout<<board[i][j]<< "\t";
         }
-        std::cout <<"\n\n";
+        cout <<"\n\n";
     }
 }
 void player::setName()
@@ -219,7 +228,7 @@ bool validteInput(int row, int col)
 {
     if(row < 0 || row > 3 || col < 0 || col > 3)
     {
-        std::cout<<"Invalid Move. Try Again\n";
+        cout<<"Invalid Move. Try Again\n";
         return false;
     }
     else 
